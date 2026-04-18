@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kris Tony</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="custom.css" />
+</head>
+<body class="home-body">
+
+<button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+
+<aside class="sidebar home-sidebar" id="sidebar">
+  <div class="sidebar-inner">
+    <a href="index.html" class="site-name">Kris Tony</a>
+    <nav class="side-nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="resume.html">Résumé</a>
+      <a href="scratch.html">More</a>
+      <a href="wordle.html">Photo Game</a>
+      <a href="mailto:krismathew03@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/kris-tony-0866b4339/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+    <p class="copyright">Copyright © All rights reserved.<br/>Provo, UT.</p>
+  </div>
+</aside>
+
+<!-- Cinematic backdrop with cross-fading photos -->
+<div class="backdrop" id="backdrop">
+  <div class="backdrop-img active" data-src="images/rainbow.jpg" style="background-image: url('images/rainbow.jpg')"></div>
+  <div class="backdrop-img" data-src="images/times-square-rain.jpg"></div>
+  <div class="backdrop-img" data-src="images/tahoe-overlook.jpg"></div>
+  <div class="backdrop-img" data-src="images/slc-temple.jpg"></div>
+  <div class="backdrop-img" data-src="images/sand-dunes.jpg"></div>
+  <div class="backdrop-img" data-src="images/nyc-drive.jpg"></div>
+  <div class="backdrop-vignette"></div>
+</div>
+
+<!-- Scroll indicator showing which photo you're on -->
+<div class="scroll-indicator" id="scrollIndicator">
+  <span class="dot active" data-idx="0"></span>
+  <span class="dot" data-idx="1"></span>
+  <span class="dot" data-idx="2"></span>
+  <span class="dot" data-idx="3"></span>
+  <span class="dot" data-idx="4"></span>
+  <span class="dot" data-idx="5"></span>
+</div>
+
+<main class="home-main">
+
+  <!-- Section 1: Intro (over rainbow) -->
+  <section class="home-section">
+    <div class="home-content">
+      <p class="home-eyebrow">Photography / 2026</p>
+      <h1 class="home-display">Kris Tony.</h1>
+      <p class="home-sub">
+        BYU finance student based in Provo. Shooting cities, people, and quiet landscapes on a Fujifilm X-T50.
+      </p>
+      <p class="home-tags">
+        <a href="gallery.html#new-york" class="city-link">New York</a>
+        <a href="gallery.html#utah" class="city-link">Utah</a>
+        <a href="gallery.html#tahoe" class="city-link">Tahoe</a>
+      </p>
+      <p class="scroll-hint"><span>Scroll</span><span class="arrow">↓</span></p>
+    </div>
+  </section>
+
+  <!-- Section 2: New York -->
+  <section class="home-section">
+    <div class="home-content align-bottom">
+      <p class="home-chapter">01 / New York</p>
+      <h2 class="home-heading">A week in the city.</h2>
+      <p class="home-sub">
+        Seven days, one camera, too many miles on the subway.
+      </p>
+      <a href="gallery.html#new-york" class="home-link">See the set →</a>
+    </div>
+  </section>
+
+  <!-- Section 3: Tahoe -->
+  <section class="home-section">
+    <div class="home-content align-right">
+      <p class="home-chapter">02 / Tahoe</p>
+      <h2 class="home-heading">Lake Tahoe.</h2>
+      <p class="home-sub">
+        Slower. Quieter. Shot in between classes over winter break.
+      </p>
+      <a href="gallery.html#tahoe" class="home-link">See the set →</a>
+    </div>
+  </section>
+
+  <!-- Section 4: Utah -->
+  <section class="home-section">
+    <div class="home-content">
+      <p class="home-chapter">03 / Utah</p>
+      <h2 class="home-heading">Home.</h2>
+      <p class="home-sub">
+        Provo, Salt Lake, and the canyons. Most of my shooting happens here.
+      </p>
+      <a href="gallery.html#utah" class="home-link">See the set →</a>
+    </div>
+  </section>
+
+  <!-- Section 5: Sand dunes -->
+  <section class="home-section">
+    <div class="home-content align-bottom">
+      <p class="home-chapter">04</p>
+      <h2 class="home-heading">Sand dunes at dusk.</h2>
+    </div>
+  </section>
+
+  <!-- Section 6: NYC drive, closing -->
+  <section class="home-section">
+    <div class="home-content align-right">
+      <p class="home-chapter">05 / The rest</p>
+      <h2 class="home-heading">Everything else.</h2>
+      <div class="home-links">
+        <a href="gallery.html" class="home-link-card">
+          <span class="num">001</span>
+          <span class="t">Gallery</span>
+          <span class="m">Selected work</span>
+          <span class="a">↗</span>
+        </a>
+        <a href="resume.html" class="home-link-card">
+          <span class="num">002</span>
+          <span class="t">Résumé</span>
+          <span class="m">Finance and design</span>
+          <span class="a">↗</span>
+        </a>
+        <a href="scratch.html" class="home-link-card">
+          <span class="num">003</span>
+          <span class="t">More</span>
+          <span class="m">Notes and data</span>
+          <span class="a">↗</span>
+        </a>
+        <a href="wordle.html" class="home-link-card">
+          <span class="num">004</span>
+          <span class="t">Photo Game</span>
+          <span class="m">Guess where it was shot</span>
+          <span class="a">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="home-footer">
+    <p>Kris Tony Photography · <a href="mailto:krismathew03@gmail.com">krismathew03@gmail.com</a></p>
+  </footer>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Mobile nav
+  const toggle = document.getElementById('mobileNavToggle');
+  const sidebar = document.getElementById('sidebar');
+  toggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    toggle.classList.toggle('active');
+  });
+  sidebar.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      toggle.classList.remove('active');
+    });
+  });
+
+  // Preload all backdrop images + swap based on scroll
+  const slides = document.querySelectorAll('.backdrop-img');
+  const sections = document.querySelectorAll('.home-section');
+  const dots = document.querySelectorAll('.scroll-indicator .dot');
+
+  // Preload
+  slides.forEach(s => {
+    const src = s.dataset.src;
+    if (src && !s.style.backgroundImage) {
+      const img = new Image();
+      img.onload = () => { s.style.backgroundImage = `url('${src}')`; };
+      img.src = src;
+    }
+  });
+
+  // Swap backdrop based on which section is centered in viewport
+  let currentIdx = 0;
+  function updateBackdrop() {
+    const mid = window.scrollY + window.innerHeight / 2;
+    let newIdx = 0;
+    sections.forEach((sec, i) => {
+      const top = sec.offsetTop;
+      const bot = top + sec.offsetHeight;
+      if (mid >= top && mid < bot) newIdx = i;
+    });
+    if (newIdx !== currentIdx) {
+      slides[currentIdx]?.classList.remove('active');
+      dots[currentIdx]?.classList.remove('active');
+      slides[newIdx]?.classList.add('active');
+      dots[newIdx]?.classList.add('active');
+      currentIdx = newIdx;
+    }
+  }
+  window.addEventListener('scroll', updateBackdrop, { passive: true });
+
+  // Click a dot to jump to that section
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      sections[i]?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>

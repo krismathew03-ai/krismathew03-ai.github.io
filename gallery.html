@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Kris Tony</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="custom.css" />
+</head>
+<body>
+
+<button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-inner">
+    <a href="index.html" class="site-name">Kris Tony</a>
+    <nav class="side-nav">
+      <a href="index.html">Home</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="resume.html">Résumé</a>
+      <a href="scratch.html">More</a>
+      <a href="wordle.html">Photo Game</a>
+      <a href="mailto:krismathew03@gmail.com">Contact</a>
+      <a href="https://www.linkedin.com/in/kris-tony-0866b4339/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+    <div class="gallery-jump">
+      <p class="anchor-heading">Jump to</p>
+      <a href="#new-york">New York</a>
+      <a href="#utah">Utah</a>
+      <a href="#tahoe">Tahoe</a>
+      <a href="#portraits">Portraits</a>
+    </div>
+    <p class="copyright">Copyright © All rights reserved.<br/>Provo, UT.</p>
+  </div>
+</aside>
+
+<main class="main">
+
+  <div class="scroll-progress"><div class="scroll-progress-bar" id="scrollBar"></div></div>
+
+  <section class="page-header">
+    <h1>Gallery</h1>
+    <p>Selected frames from the last year.</p>
+  </section>
+
+  <!-- ========== NEW YORK ========== -->
+  <div class="section-divider" id="new-york">
+    <h2>New York</h2>
+  </div>
+
+  <!-- Pair 1: skyline + neil simon -->
+  <div class="portrait-pair">
+    <a href="#" class="photo portrait"><img src="images/nyc-skyline.jpg" alt="Manhattan skyline in fog" /></a>
+    <a href="#" class="photo portrait"><img src="images/neil-simon.jpg" alt="Neil Simon theater sign" /></a>
+  </div>
+
+  <!-- Solo landscape -->
+  <a href="#" class="photo"><img src="images/times-square-rain.jpg" alt="Times Square in the rain" /></a>
+
+  <!-- Pair 2: times square + wall street bull -->
+  <div class="portrait-pair">
+    <a href="#" class="photo portrait"><img src="images/times-square.jpg" alt="Times Square at night" /></a>
+    <a href="#" class="photo portrait"><img src="images/wall-street-bull.jpg" alt="Charging Bull, Wall Street" /></a>
+  </div>
+
+  <!-- Pair 3: oculus + drive -->
+  <a href="#" class="photo portrait"><img src="images/nyc-oculus.jpg" alt="The Oculus" /></a>
+
+  <a href="#" class="photo"><img src="images/nyc-drive.jpg" alt="NYC skyline from the car" /></a>
+
+  <!-- ========== UTAH ========== -->
+  <div class="section-divider" id="utah">
+    <h2>Utah</h2>
+  </div>
+
+  <a href="#" class="photo portrait"><img src="images/rainbow.jpg" alt="Rainbow over Utah" /></a>
+
+  <div class="portrait-pair">
+    <a href="#" class="photo portrait"><img src="images/slc-temple.jpg" alt="Salt Lake Temple" /></a>
+    <a href="#" class="photo portrait"><img src="images/slc-statue.jpg" alt="Downtown Salt Lake statue" /></a>
+  </div>
+
+  <a href="#" class="photo"><img src="images/slc-crowd.jpg" alt="Crowd walking toward downtown Salt Lake" /></a>
+
+  <a href="#" class="photo portrait"><img src="images/slc-street.jpg" alt="Salt Lake City street scene" /></a>
+
+  <a href="#" class="photo"><img src="images/three-pines-coffee.jpg" alt="Three Pines Coffee window" /></a>
+
+  <a href="#" class="photo"><img src="images/union-pacific.jpg" alt="Union Pacific Railroad sign" /></a>
+
+  <a href="#" class="photo"><img src="images/sand-dunes.jpg" alt="Sand dunes at sunset" /></a>
+
+  <!-- ========== TAHOE ========== -->
+  <div class="section-divider" id="tahoe">
+    <h2>Lake Tahoe</h2>
+  </div>
+
+  <a href="#" class="photo"><img src="images/tahoe-overlook.jpg" alt="Tahoe overlook at dusk" /></a>
+
+  <div class="portrait-pair">
+    <a href="#" class="photo portrait"><img src="images/tahoe-trees.jpg" alt="Lake Tahoe through the trees" /></a>
+    <a href="#" class="photo portrait"><img src="images/tahoe-tree-rock.jpg" alt="Standing on a rock with a pine tree" /></a>
+  </div>
+
+  <a href="#" class="photo portrait"><img src="images/tahoe-path.jpg" alt="Walking a Tahoe path" /></a>
+
+  <a href="#" class="photo"><img src="images/tahoe-rocks.jpg" alt="Lakeside rocks" /></a>
+
+  <a href="#" class="photo"><img src="images/tahoe-beach.jpg" alt="Tahoe beach" /></a>
+
+  <!-- ========== PORTRAITS ========== -->
+  <div class="section-divider" id="portraits">
+    <h2>Portraits</h2>
+  </div>
+
+  <div class="portrait-pair">
+    <a href="#" class="photo portrait"><img src="images/couple.jpg" alt="Couple portrait" /></a>
+    <a href="#" class="photo portrait"><img src="images/self-portrait.jpg" alt="Self portrait in a convex mirror" /></a>
+  </div>
+
+  <footer class="page-footer">
+    <p class="foot-left">Kris Tony Photography</p>
+    <p class="foot-right">
+      <a href="mailto:krismathew03@gmail.com">krismathew03@gmail.com</a>
+    </p>
+  </footer>
+
+</main>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Photo viewer">
+  <button class="lightbox-close" id="lbClose" aria-label="Close">×</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <img id="lbImg" src="" alt="" />
+  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next">›</button>
+  <p class="lightbox-counter" id="lbCounter">01 / 00</p>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <button class="lightbox-close" id="lbClose" aria-label="Close">×</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <img id="lbImg" src="" alt="" />
+  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next">›</button>
+  <div class="lightbox-counter" id="lbCounter">1 / 1</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const toggle = document.getElementById('mobileNavToggle');
+  const sidebar = document.getElementById('sidebar');
+  toggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+    toggle.classList.toggle('active');
+  });
+  sidebar.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      toggle.classList.remove('active');
+    });
+  });
+
+  // Scroll progress bar
+  const bar = document.getElementById('scrollBar');
+  if (bar) {
+    const updateBar = () => {
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+      bar.style.width = Math.min(100, Math.max(0, scrolled)) + '%';
+    };
+    window.addEventListener('scroll', updateBar, { passive: true });
+    updateBar();
+  }
+
+  // Fade photos in as they enter the viewport
+  // (mark them as js-fade so CSS knows to hide them; if JS fails, they stay visible)
+  const allPhotos = document.querySelectorAll('.photo');
+  if ('IntersectionObserver' in window) {
+    allPhotos.forEach(el => el.classList.add('js-fade'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+    allPhotos.forEach(el => io.observe(el));
+  }
+
+  // Hash jump on load
+  if (window.location.hash) {
+    setTimeout(() => {
+      const target = document.querySelector(window.location.hash);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+
+  // ===== Lightbox =====
+  const photos = Array.from(document.querySelectorAll('.photo img'));
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCounter = document.getElementById('lbCounter');
+  let lbIndex = 0;
+
+  function openLightbox(i) {
+    lbIndex = i;
+    const src = photos[i].src;
+    const alt = photos[i].alt || '';
+    lbImg.src = src;
+    lbImg.alt = alt;
+    lbCounter.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(photos.length).padStart(2, '0');
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function showPrev() {
+    openLightbox((lbIndex - 1 + photos.length) % photos.length);
+  }
+  function showNext() {
+    openLightbox((lbIndex + 1) % photos.length);
+  }
+
+  // Click each photo anchor to open
+  document.querySelectorAll('.photo').forEach((el, i) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLightbox(i);
+    });
+  });
+
+  // Controls
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  document.getElementById('lbPrev').addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+  document.getElementById('lbNext').addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+
+  // Click the backdrop (but not the image or buttons) to close
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb) closeLightbox();
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowLeft') showPrev();
+    else if (e.key === 'ArrowRight') showNext();
+  });
+
+  // ---------- Lightbox ----------
+  const photos = Array.from(document.querySelectorAll('.photo'));
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCounter = document.getElementById('lbCounter');
+  const lbClose = document.getElementById('lbClose');
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+  let currentIdx = 0;
+
+  function openLightbox(idx) {
+    currentIdx = idx;
+    const src = photos[idx].querySelector('img').src;
+    const alt = photos[idx].querySelector('img').alt;
+    lbImg.src = src;
+    lbImg.alt = alt;
+    lbCounter.textContent = `${idx + 1} / ${photos.length}`;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function nextPhoto() {
+    openLightbox((currentIdx + 1) % photos.length);
+  }
+  function prevPhoto() {
+    openLightbox((currentIdx - 1 + photos.length) % photos.length);
+  }
+
+  photos.forEach((p, i) => {
+    p.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLightbox(i);
+    });
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', (e) => { e.stopPropagation(); prevPhoto(); });
+  lbNext.addEventListener('click', (e) => { e.stopPropagation(); nextPhoto(); });
+  lightbox.addEventListener('click', (e) => {
+    // Click outside the image closes
+    if (e.target === lightbox || e.target === lbImg) {
+      // only close when clicking background, not the image itself
+      if (e.target !== lbImg) closeLightbox();
+    }
+  });
+  lbImg.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowRight') nextPhoto();
+    else if (e.key === 'ArrowLeft') prevPhoto();
+  });
+</script>
+</body>
+</html>

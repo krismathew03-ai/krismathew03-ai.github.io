@@ -1,0 +1,467 @@
+/* =====================================================
+   styles.css — From-scratch stylesheet for scratch.html
+   Hand-written by Kris Tony · No Bootstrap used here
+   Aesthetic: minimal dark · matches main portfolio
+   ===================================================== */
+
+/* ---------- STYLE 1: font-family and body typography ---------- */
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  background-color: #0e0e0e;        /* custom background (REQUIREMENT) */
+  color: #e8e6e1;
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- STYLE 2: font-color for headings ---------- */
+h1, h2 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #e8e6e1;                   /* explicit font-color (REQUIREMENT) */
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  margin: 0 0 1rem 0;
+}
+
+h1 {
+  font-size: 3.5rem;
+  line-height: 0.95;
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0 0 1em 0;
+  color: #e8e6e1;
+}
+
+strong {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+em {
+  color: #a8a6a1;
+  font-style: italic;
+}
+
+a {
+  color: #e8e6e1;
+  text-decoration: none;
+}
+
+/* ---------- STYLE 3: sidebar (fixed positioning div) ---------- */
+.scratch-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background-color: #0e0e0e;
+  padding: 40px 32px;
+  border-right: 1px solid rgba(232, 230, 225, 0.08);
+  z-index: 20;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.scratch-sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+}
+
+.scratch-site-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #e8e6e1;
+  margin-bottom: 32px;
+  display: block;
+}
+
+.scratch-side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 28px;
+}
+
+.scratch-side-nav a {
+  font-size: 0.88rem;
+  color: #e8e6e1;
+  font-weight: 300;
+  transition: opacity 0.2s, transform 0.25s;
+}
+
+.scratch-side-nav a:hover {
+  opacity: 0.55;
+  transform: translateX(3px);
+}
+
+.scratch-side-nav a.active {
+  font-weight: 500;
+}
+
+.scratch-anchors {
+  padding-top: 20px;
+  border-top: 1px solid rgba(232, 230, 225, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.anchor-heading {
+  font-size: 0.72rem;
+  color: #7a7770;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin: 0 0 12px 0;
+}
+
+.scratch-anchors a {
+  font-size: 0.82rem;
+  color: #a8a6a1;
+  transition: color 0.2s, transform 0.25s;
+}
+
+.scratch-anchors a:hover {
+  color: #e8e6e1;
+  transform: translateX(3px);
+}
+
+.scratch-copyright {
+  font-size: 0.72rem;
+  color: #7a7770;
+  margin-top: auto;
+  padding-top: 24px;
+  line-height: 1.6;
+}
+
+/* ---------- Mobile nav toggle ---------- */
+.scratch-mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background-color: #0e0e0e;
+  border: 1px solid rgba(232, 230, 225, 0.12);
+  z-index: 30;
+  cursor: pointer;
+  padding: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.scratch-mobile-toggle span {
+  display: block;
+  width: 18px;
+  height: 1px;
+  background-color: #e8e6e1;
+  transition: all 0.25s ease;
+}
+
+.scratch-mobile-toggle.active span:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+.scratch-mobile-toggle.active span:nth-child(2) { opacity: 0; }
+.scratch-mobile-toggle.active span:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+/* ---------- STYLE 4: main content area (positioning div) ---------- */
+.scratch-main {
+  margin-left: 260px;
+  padding: 40px 40px 60px 40px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* ---------- STYLE 5: hero div (positioning) ---------- */
+.scratch-hero {
+  padding: 20px 0 60px 0;
+  max-width: 720px;
+  border-bottom: 1px solid rgba(232, 230, 225, 0.08);
+  margin-bottom: 30px;
+}
+
+.scratch-kicker {
+  font-size: 0.78rem;
+  color: #7a7770;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.scratch-tagline {
+  font-size: 1.2rem;
+  color: #e8e6e1;
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 580px;
+  margin-top: 16px;
+}
+
+/* ---------- STYLE 6: section divs (positioning) ---------- */
+.scratch-section {
+  max-width: 780px;
+  padding: 40px 0;
+  border-bottom: 1px solid rgba(232, 230, 225, 0.08);
+}
+
+.scratch-section:last-of-type {
+  border-bottom: none;
+}
+
+.section-num {
+  font-size: 0.75rem;
+  color: #7a7770;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.section-num.light {
+  color: #a8a6a1;
+}
+
+/* ---------- STYLE 7: callout section (dark-on-dark with accent) ---------- */
+.callout-section {
+  background-color: #141414;
+  padding: 48px 40px;
+  margin: 40px -40px;
+  max-width: none;
+  border-left: 3px solid #e8e6e1;
+  border-bottom: none;
+}
+
+.callout-section .center {
+  text-align: center;
+  margin-top: 28px;
+}
+
+/* ---------- STYLE 8: list styling ---------- */
+.scratch-list {
+  padding-left: 24px;
+  margin: 20px 0 28px 0;
+  color: #e8e6e1;
+}
+
+.scratch-list > li {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+  padding-left: 10px;
+}
+
+.scratch-list ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.scratch-list ul li {
+  font-size: 0.92rem;
+  color: #a8a6a1;
+  padding: 4px 0 4px 24px;
+  position: relative;
+  font-style: italic;
+}
+
+.scratch-list ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: #7a7770;
+  font-style: normal;
+}
+
+/* ---------- STYLE 9: figure / image styling ---------- */
+.scratch-figure {
+  margin: 32px 0 0 0;
+}
+
+.scratch-figure img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid rgba(232, 230, 225, 0.08);
+}
+
+.scratch-figure figcaption {
+  font-size: 0.82rem;
+  color: #7a7770;
+  margin-top: 14px;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+/* ---------- STYLE 10: video wrapper ---------- */
+.scratch-video {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  margin-top: 18px;
+  background-color: #000;
+  border: 1px solid rgba(232, 230, 225, 0.08);
+}
+
+.scratch-video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------- STYLE 11: Tableau container ---------- */
+.scratch-tableau {
+  margin-top: 18px;
+  background-color: #ffffff;
+  border: 1px solid rgba(232, 230, 225, 0.08);
+  min-height: 520px;
+  padding: 2px;
+}
+
+.scratch-tableau tableau-viz {
+  width: 100%;
+  min-height: 510px;
+  display: block;
+}
+
+/* ---------- STYLE 12: button ---------- */
+.scratch-btn {
+  display: inline-block;
+  background-color: transparent;
+  color: #e8e6e1;
+  padding: 14px 32px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid #e8e6e1;
+  transition: all 0.25s ease;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.scratch-btn:hover {
+  background-color: #e8e6e1;
+  color: #0e0e0e;
+}
+
+.center {
+  text-align: center;
+}
+
+/* ---------- STYLE 13: footer ---------- */
+.scratch-footer {
+  margin-top: 60px;
+  padding: 30px 0;
+  border-top: 1px solid rgba(232, 230, 225, 0.08);
+  font-size: 0.82rem;
+  color: #7a7770;
+}
+
+.scratch-footer p {
+  margin: 0 0 4px 0;
+  color: #7a7770;
+}
+
+.scratch-footer a {
+  color: #e8e6e1;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.scratch-footer a:hover {
+  border-bottom-color: #e8e6e1;
+}
+
+.foot-small {
+  font-size: 0.72rem;
+  color: #7a7770;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
+/* ---------- Entrance animation ---------- */
+@keyframes scratchFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.scratch-main {
+  animation: scratchFadeIn 0.6s ease both;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .scratch-mobile-toggle {
+    display: flex;
+  }
+
+  .scratch-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.35s ease;
+    width: 80%;
+    max-width: 300px;
+  }
+
+  .scratch-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .scratch-main {
+    margin-left: 0;
+    padding: 70px 20px 40px 20px;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+
+  .scratch-hero {
+    padding: 10px 0 40px 0;
+  }
+
+  .scratch-tagline {
+    font-size: 1rem;
+  }
+
+  .scratch-section {
+    padding: 30px 0;
+  }
+
+  .callout-section {
+    margin: 30px -20px;
+    padding: 32px 20px;
+  }
+
+  .scratch-tableau {
+    min-height: 420px;
+  }
+
+  .scratch-tableau tableau-viz {
+    min-height: 410px;
+  }
+}

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photo Game — Kris Tony</title>
+
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --bg-2: #141414;
+      --text: #e8e6e1;
+      --muted: #7a7770;
+      --rule: rgba(232, 230, 225, 0.08);
+      --correct: #5a7f62;
+      --wrong: #8a4a4a;
+      --btn-border: rgba(232, 230, 225, 0.2);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+    }
+    .topbar a {
+      color: var(--text);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .topbar a:hover { opacity: 0.55; }
+    .title {
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    /* Stats bar */
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-bottom: 1.25rem;
+    }
+    .stat {
+      background: var(--bg);
+      padding: 0.75rem 1rem;
+      text-align: center;
+    }
+    .stat-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 0.25rem;
+    }
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 0;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-value.streak { color: #d97757; }
+
+    /* Round counter */
+    .round-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.75rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Photo container */
+    .photo-box {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #000;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+      margin-bottom: 1.25rem;
+    }
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.4s ease, transform 0.6s ease;
+    }
+    .photo-box img.loading {
+      opacity: 0;
+    }
+
+    /* Reveal overlay */
+    .reveal {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(14, 14, 14, 0.82);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .reveal.show { opacity: 1; pointer-events: auto; }
+    .reveal-inner { text-align: center; padding: 1rem; }
+    .reveal-head {
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .reveal.correct .reveal-head { color: #7bbd89; }
+    .reveal.wrong .reveal-head { color: #e49090; }
+    .reveal-sub {
+      font-size: 0.88rem;
+      color: var(--text);
+      opacity: 0.85;
+      margin: 0 0 1.25rem;
+      max-width: 420px;
+    }
+    .reveal-points {
+      display: inline-block;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--btn-border);
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Guess buttons */
+    .guess-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .guess-btn {
+      background: transparent;
+      border: 1px solid var(--btn-border);
+      color: var(--text);
+      padding: 1rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 400;
+    }
+    .guess-btn:hover:not(:disabled) {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    .guess-btn:disabled {
+      cursor: default;
+      opacity: 0.4;
+    }
+    .guess-btn.correct {
+      background: var(--correct) !important;
+      border-color: var(--correct) !important;
+      color: #fff !important;
+      opacity: 1;
+    }
+    .guess-btn.wrong {
+      background: var(--wrong) !important;
+      border-color: var(--wrong) !important;
+      color: #fff !important;
+      opacity: 1;
+    }
+
+    /* Timer bar */
+    .timer-bar {
+      height: 2px;
+      background: var(--rule);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+    .timer-fill {
+      height: 100%;
+      background: var(--text);
+      width: 100%;
+      transition: width 0.1s linear;
+    }
+    .timer-fill.warning { background: #d97757; }
+    .timer-fill.danger { background: #e49090; }
+
+    /* Action row */
+    .action-row {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+    .action-btn {
+      flex: 1;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 0.9rem;
+      font-family: inherit;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 400;
+    }
+    .action-btn.ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--btn-border);
+    }
+    .action-btn:hover { opacity: 0.85; }
+    .action-btn.ghost:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    /* Game over modal */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(14, 14, 14, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+    .modal-bg.show { display: flex; }
+    .modal {
+      background: var(--bg-2);
+      padding: 2.5rem 2.5rem 2rem;
+      max-width: 480px;
+      width: 92%;
+      text-align: center;
+      border: 1px solid var(--rule);
+    }
+    .modal h2 {
+      font-size: 1.75rem;
+      margin: 0 0 0.5rem 0;
+      font-weight: 500;
+      letter-spacing: -0.015em;
+    }
+    .modal .final-score {
+      font-size: 3.5rem;
+      font-weight: 500;
+      color: #d97757;
+      margin: 1rem 0 0.25rem;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .modal .final-sub {
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin: 0 0 1.5rem;
+    }
+    .modal .grade-line {
+      font-size: 1rem;
+      color: var(--text);
+      margin: 1rem 0 1.5rem;
+      font-style: italic;
+      opacity: 0.9;
+    }
+    .modal .breakdown {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-bottom: 1.5rem;
+    }
+    .modal .breakdown div {
+      background: var(--bg-2);
+      padding: 0.75rem;
+    }
+    .modal .b-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 0.25rem;
+    }
+    .modal .b-val {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .modal button {
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 0.9rem 1.5rem;
+      font-family: inherit;
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Intro screen */
+    .intro {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    .intro h2 {
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      margin: 0 0 1rem;
+    }
+    .intro p {
+      color: var(--text);
+      opacity: 0.85;
+      max-width: 440px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+    .intro .rules {
+      text-align: left;
+      max-width: 420px;
+      margin: 0 auto 2rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .intro .rules strong { color: var(--text); font-weight: 500; }
+    .intro .start-btn {
+      display: inline-block;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      padding: 1rem 2.5rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 520px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--rule); }
+      .guess-btn { padding: 0.85rem 0.4rem; font-size: 0.72rem; letter-spacing: 0.12em; }
+      .modal { padding: 2rem 1.5rem; }
+      .modal .final-score { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+
+    <div class="topbar">
+      <a href="scratch.html">← Back</a>
+      <span class="title">Where was it shot?</span>
+      <a href="index.html">Home</a>
+    </div>
+
+    <!-- Intro -->
+    <div id="intro" class="intro">
+      <h2>Where was it shot?</h2>
+      <p>A photo guessing game using my own work.</p>
+      <div class="rules">
+        <strong>How it works.</strong> You get 10 rounds. Each round shows one of my photos. Guess whether it was taken in <strong>New York</strong>, <strong>Utah</strong>, or <strong>Tahoe</strong>.<br/><br/>
+        <strong>Scoring.</strong> Fast guesses are worth more. The timer counts down from 10 seconds. Wrong guesses cost you the round. A streak of 3+ correct gives bonus points.
+      </div>
+      <button class="start-btn" onclick="startGame()">Begin</button>
+    </div>
+
+    <!-- Game -->
+    <div id="game" class="hidden">
+      <div class="stats">
+        <div class="stat"><p class="stat-label">Round</p><p class="stat-value" id="s-round">1/10</p></div>
+        <div class="stat"><p class="stat-label">Score</p><p class="stat-value" id="s-score">0</p></div>
+        <div class="stat"><p class="stat-label">Streak</p><p class="stat-value streak" id="s-streak">0</p></div>
+        <div class="stat"><p class="stat-label">Best</p><p class="stat-value" id="s-best">0</p></div>
+      </div>
+
+      <div class="timer-bar"><div class="timer-fill" id="timerFill"></div></div>
+
+      <div class="photo-box">
+        <img id="photo" src="" alt="" />
+        <div class="reveal" id="reveal">
+          <div class="reveal-inner">
+            <p class="reveal-head" id="reveal-head">Correct</p>
+            <p class="reveal-sub" id="reveal-sub"></p>
+            <div class="reveal-points" id="reveal-points">+100</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guess-row">
+        <button class="guess-btn" data-region="new-york" onclick="guess('new-york')">New York</button>
+        <button class="guess-btn" data-region="utah" onclick="guess('utah')">Utah</button>
+        <button class="guess-btn" data-region="tahoe" onclick="guess('tahoe')">Tahoe</button>
+      </div>
+
+      <div class="action-row">
+        <button class="action-btn ghost hidden" id="skipBtn" onclick="skip()">Skip</button>
+        <button class="action-btn hidden" id="nextBtn" onclick="nextRound()">Next →</button>
+      </div>
+    </div>
+
+    <!-- End modal -->
+    <div class="modal-bg" id="modalBg">
+      <div class="modal">
+        <h2>Round over.</h2>
+        <p class="final-sub">Final score</p>
+        <p class="final-score" id="finalScore">0</p>
+        <p class="grade-line" id="gradeLine">Not bad.</p>
+        <div class="breakdown">
+          <div><p class="b-label">Correct</p><p class="b-val" id="bCorrect">0</p></div>
+          <div><p class="b-label">Best streak</p><p class="b-val" id="bStreak">0</p></div>
+          <div><p class="b-label">Avg time</p><p class="b-val" id="bTime">0s</p></div>
+        </div>
+        <button onclick="restartGame()">Play again</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Photo database. Each entry: image, region, caption for reveal.
+    const PHOTOS = [
+      // New York
+      { src: 'images/nyc-skyline.jpg',      region: 'new-york', caption: 'Central Park South. Essex House in the fog.' },
+      { src: 'images/neil-simon.jpg',       region: 'new-york', caption: 'Neil Simon Theatre. Broadway, Othello run.' },
+      { src: 'images/times-square.jpg',     region: 'new-york', caption: 'Times Square at night.' },
+      { src: 'images/times-square-rain.jpg',region: 'new-york', caption: 'Times Square, rain.' },
+      { src: 'images/wall-street-bull.jpg', region: 'new-york', caption: 'The Charging Bull. Wall Street.' },
+      { src: 'images/nyc-oculus.jpg',       region: 'new-york', caption: 'The Oculus. Lower Manhattan.' },
+      { src: 'images/nyc-drive.jpg',        region: 'new-york', caption: 'NYC skyline from the road.' },
+
+      // Utah
+      { src: 'images/rainbow.jpg',          region: 'utah',     caption: 'Utah after a storm.' },
+      { src: 'images/slc-temple.jpg',       region: 'utah',     caption: 'Salt Lake Temple.' },
+      { src: 'images/slc-statue.jpg',       region: 'utah',     caption: 'Downtown Salt Lake.' },
+      { src: 'images/slc-crowd.jpg',        region: 'utah',     caption: 'Crowd, downtown SLC.' },
+      { src: 'images/slc-street.jpg',       region: 'utah',     caption: 'Downtown Salt Lake, morning commute.' },
+      { src: 'images/three-pines-coffee.jpg', region: 'utah',   caption: 'Three Pines Coffee. Salt Lake.' },
+      { src: 'images/union-pacific.jpg',    region: 'utah',     caption: 'Union Pacific. Salt Lake.' },
+      { src: 'images/sand-dunes.jpg',       region: 'utah',     caption: 'Sand dunes at dusk.' },
+
+      // Tahoe
+      { src: 'images/tahoe-overlook.jpg',   region: 'tahoe',    caption: 'Tahoe overlook at dusk.' },
+      { src: 'images/tahoe-trees.jpg',      region: 'tahoe',    caption: 'Lake Tahoe through the pines.' },
+      { src: 'images/tahoe-tree-rock.jpg',  region: 'tahoe',    caption: 'Standing on a rock at Tahoe.' },
+      { src: 'images/tahoe-path.jpg',       region: 'tahoe',    caption: 'A path along the lake.' },
+      { src: 'images/tahoe-rocks.jpg',      region: 'tahoe',    caption: 'Sitting by the water at Tahoe.' },
+      { src: 'images/tahoe-beach.jpg',      region: 'tahoe',    caption: 'A Tahoe beach.' }
+    ];
+
+    const REGION_LABELS = {
+      'new-york': 'New York',
+      'utah': 'Utah',
+      'tahoe': 'Tahoe'
+    };
+
+    const TOTAL_ROUNDS = 10;
+    const ROUND_TIME_MS = 10000;
+
+    let state = {
+      round: 0,
+      score: 0,
+      streak: 0,
+      bestStreak: 0,
+      correctCount: 0,
+      totalTimeSpent: 0,
+      roundPhotos: [],
+      currentPhoto: null,
+      startTime: 0,
+      timerInterval: null,
+      answered: false
+    };
+
+    // Persistent best score
+    function getBest() {
+      return parseInt(sessionStorage.getItem ? (sessionStorage.getItem('photoGameBest') || '0') : '0');
+    }
+    function setBest(n) {
+      try { sessionStorage.setItem('photoGameBest', String(n)); } catch(e) {}
+    }
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function startGame() {
+      document.getElementById('intro').classList.add('hidden');
+      document.getElementById('game').classList.remove('hidden');
+      restartGame();
+    }
+
+    function restartGame() {
+      document.getElementById('modalBg').classList.remove('show');
+      state = {
+        round: 0, score: 0, streak: 0, bestStreak: 0,
+        correctCount: 0, totalTimeSpent: 0,
+        roundPhotos: shuffle(PHOTOS).slice(0, TOTAL_ROUNDS),
+        currentPhoto: null, startTime: 0, timerInterval: null, answered: false
+      };
+      document.getElementById('s-best').textContent = getBest();
+      loadRound();
+    }
+
+    function loadRound() {
+      if (state.round >= TOTAL_ROUNDS) {
+        endGame();
+        return;
+      }
+      state.answered = false;
+      state.currentPhoto = state.roundPhotos[state.round];
+
+      // Update stats
+      document.getElementById('s-round').textContent = `${state.round + 1}/${TOTAL_ROUNDS}`;
+      document.getElementById('s-score').textContent = state.score;
+      document.getElementById('s-streak').textContent = state.streak;
+
+      // Reset buttons
+      document.querySelectorAll('.guess-btn').forEach(b => {
+        b.disabled = false;
+        b.classList.remove('correct', 'wrong');
+      });
+      document.getElementById('skipBtn').classList.remove('hidden');
+      document.getElementById('nextBtn').classList.add('hidden');
+
+      // Hide reveal
+      const reveal = document.getElementById('reveal');
+      reveal.classList.remove('show', 'correct', 'wrong');
+
+      // Load photo
+      const img = document.getElementById('photo');
+      img.classList.add('loading');
+      const newImg = new Image();
+      newImg.onload = () => {
+        img.src = state.currentPhoto.src;
+        img.classList.remove('loading');
+        startTimer();
+      };
+      newImg.onerror = () => {
+        img.src = state.currentPhoto.src;
+        img.classList.remove('loading');
+        startTimer();
+      };
+      newImg.src = state.currentPhoto.src;
+    }
+
+    function startTimer() {
+      state.startTime = Date.now();
+      const fill = document.getElementById('timerFill');
+      fill.style.width = '100%';
+      fill.classList.remove('warning', 'danger');
+
+      if (state.timerInterval) clearInterval(state.timerInterval);
+      state.timerInterval = setInterval(() => {
+        const elapsed = Date.now() - state.startTime;
+        const remaining = Math.max(0, ROUND_TIME_MS - elapsed);
+        const pct = (remaining / ROUND_TIME_MS) * 100;
+        fill.style.width = pct + '%';
+
+        if (pct < 35) fill.classList.add('warning');
+        if (pct < 15) { fill.classList.remove('warning'); fill.classList.add('danger'); }
+
+        if (remaining <= 0) {
+          clearInterval(state.timerInterval);
+          if (!state.answered) timeOut();
+        }
+      }, 100);
+    }
+
+    function guess(region) {
+      if (state.answered) return;
+      state.answered = true;
+      clearInterval(state.timerInterval);
+
+      const elapsed = Date.now() - state.startTime;
+      state.totalTimeSpent += elapsed;
+      const correct = region === state.currentPhoto.region;
+
+      // Mark buttons
+      document.querySelectorAll('.guess-btn').forEach(b => {
+        b.disabled = true;
+        const r = b.dataset.region;
+        if (r === state.currentPhoto.region) b.classList.add('correct');
+        else if (r === region && !correct) b.classList.add('wrong');
+      });
+
+      // Scoring: base 100, up to +50 for speed, +25 streak bonus after 3 in a row
+      let points = 0;
+      if (correct) {
+        const speedBonus = Math.round(Math.max(0, (ROUND_TIME_MS - elapsed) / ROUND_TIME_MS) * 50);
+        points = 100 + speedBonus;
+        state.streak++;
+        state.correctCount++;
+        if (state.streak >= 3) points += 25;
+        if (state.streak > state.bestStreak) state.bestStreak = state.streak;
+      } else {
+        state.streak = 0;
+      }
+      state.score += points;
+
+      // Update UI
+      document.getElementById('s-score').textContent = state.score;
+      document.getElementById('s-streak').textContent = state.streak;
+
+      // Show reveal
+      const reveal = document.getElementById('reveal');
+      reveal.classList.add('show', correct ? 'correct' : 'wrong');
+      document.getElementById('reveal-head').textContent = correct ? 'Nailed it.' : 'Not quite.';
+      document.getElementById('reveal-sub').textContent = state.currentPhoto.caption + ' (' + REGION_LABELS[state.currentPhoto.region] + ')';
+      document.getElementById('reveal-points').textContent = correct ? `+${points} ${state.streak >= 3 ? '· streak bonus' : ''}` : 'No points';
+
+      document.getElementById('skipBtn').classList.add('hidden');
+      document.getElementById('nextBtn').classList.remove('hidden');
+    }
+
+    function timeOut() {
+      state.answered = true;
+      state.streak = 0;
+      state.totalTimeSpent += ROUND_TIME_MS;
+
+      document.querySelectorAll('.guess-btn').forEach(b => {
+        b.disabled = true;
+        if (b.dataset.region === state.currentPhoto.region) b.classList.add('correct');
+      });
+
+      const reveal = document.getElementById('reveal');
+      reveal.classList.add('show', 'wrong');
+      document.getElementById('reveal-head').textContent = 'Time\'s up.';
+      document.getElementById('reveal-sub').textContent = state.currentPhoto.caption + ' (' + REGION_LABELS[state.currentPhoto.region] + ')';
+      document.getElementById('reveal-points').textContent = 'No points';
+
+      document.getElementById('s-streak').textContent = state.streak;
+      document.getElementById('skipBtn').classList.add('hidden');
+      document.getElementById('nextBtn').classList.remove('hidden');
+    }
+
+    function skip() {
+      if (state.answered) return;
+      state.answered = true;
+      clearInterval(state.timerInterval);
+      state.streak = 0;
+      state.totalTimeSpent += (Date.now() - state.startTime);
+
+      document.querySelectorAll('.guess-btn').forEach(b => {
+        b.disabled = true;
+        if (b.dataset.region === state.currentPhoto.region) b.classList.add('correct');
+      });
+
+      const reveal = document.getElementById('reveal');
+      reveal.classList.add('show', 'wrong');
+      document.getElementById('reveal-head').textContent = 'Skipped.';
+      document.getElementById('reveal-sub').textContent = state.currentPhoto.caption + ' (' + REGION_LABELS[state.currentPhoto.region] + ')';
+      document.getElementById('reveal-points').textContent = 'No points';
+
+      document.getElementById('s-streak').textContent = state.streak;
+      document.getElementById('skipBtn').classList.add('hidden');
+      document.getElementById('nextBtn').classList.remove('hidden');
+    }
+
+    function nextRound() {
+      state.round++;
+      loadRound();
+    }
+
+    function endGame() {
+      const avgTime = Math.round((state.totalTimeSpent / TOTAL_ROUNDS) / 100) / 10;
+      const best = getBest();
+      if (state.score > best) setBest(state.score);
+
+      document.getElementById('finalScore').textContent = state.score;
+      document.getElementById('bCorrect').textContent = `${state.correctCount}/${TOTAL_ROUNDS}`;
+      document.getElementById('bStreak').textContent = state.bestStreak;
+      document.getElementById('bTime').textContent = avgTime + 's';
+
+      // Grade
+      const pct = state.correctCount / TOTAL_ROUNDS;
+      let grade;
+      if (pct === 1) grade = 'You know my work better than I do.';
+      else if (pct >= 0.8) grade = 'You\'ve been paying attention.';
+      else if (pct >= 0.6) grade = 'Respectable.';
+      else if (pct >= 0.4) grade = 'There\'s a pattern here. You\'ll find it.';
+      else if (pct >= 0.2) grade = 'It\'s just geography. Try again.';
+      else grade = 'Coin flip would\'ve done better.';
+      document.getElementById('gradeLine').textContent = grade;
+
+      document.getElementById('modalBg').classList.add('show');
+    }
+
+    // Keyboard: 1 = NY, 2 = Utah, 3 = Tahoe, Enter/Space = next
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('intro').classList.contains('hidden') === false) return;
+      if (document.getElementById('modalBg').classList.contains('show')) return;
+
+      if (!state.answered) {
+        if (e.key === '1') guess('new-york');
+        else if (e.key === '2') guess('utah');
+        else if (e.key === '3') guess('tahoe');
+      } else {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          nextRound();
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

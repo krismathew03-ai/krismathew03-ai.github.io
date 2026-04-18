@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>More — Kris Tony</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js"></script>
+</head>
+<body>
+
+  <button class="scratch-mobile-toggle" id="scratchToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <aside class="scratch-sidebar" id="scratchSidebar">
+    <div class="scratch-sidebar-inner">
+      <a href="index.html" class="scratch-site-name">Kris Tony</a>
+      <nav class="scratch-side-nav">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="resume.html">Résumé</a>
+        <a href="scratch.html" class="active">More</a>
+        <a href="wordle.html">Photo Game</a>
+        <a href="mailto:krismathew03@gmail.com">Contact</a>
+      </nav>
+      <div class="scratch-anchors">
+        <p class="anchor-heading">On this page</p>
+        <a href="#about">About</a>
+        <a href="#hobbies">Field notes</a>
+        <a href="#video">Video</a>
+        <a href="#data">Data</a>
+        <a href="#app">Word game</a>
+      </div>
+      <p class="scratch-copyright">Copyright © All rights reserved.<br/>Provo, UT.</p>
+    </div>
+  </aside>
+
+  <main class="scratch-main">
+
+    <div class="scratch-hero" id="top">
+      <p class="scratch-kicker">Hand-coded / No Bootstrap / 2026</p>
+      <h1>More.</h1>
+      <p class="scratch-tagline">
+        A from-scratch page for the rest of it. Photography, data, and a guessing game I built on the side.
+      </p>
+    </div>
+
+    <div class="scratch-section" id="about">
+      <p class="section-num">01 / About</p>
+      <h2>Why this page exists.</h2>
+      <p>
+        This page is hand-written HTML with its own CSS file. No Bootstrap, no templates.
+      </p>
+      <p>
+        I built it in collaboration with an AI and then shaped the design, content, and structure into something that felt like mine. The layout, the photos, the tone, and most of the decisions came from me. The AI handled the grunt work of turning those decisions into clean code.
+      </p>
+      <p>
+        I'm <strong>Kris Tony</strong>, a finance major at BYU. I shoot on a Fujifilm X-T50, design pitch decks for startups on the side, and play too much Rocket League.
+      </p>
+    </div>
+
+    <div class="scratch-section" id="hobbies">
+      <p class="section-num">02 / Field notes</p>
+      <h2>What I shoot.</h2>
+
+      <p>A loose taxonomy of what ends up in my drive:</p>
+
+      <ol class="scratch-list">
+        <li>
+          <strong>Cities.</strong> The obvious playground.
+          <ul>
+            <li>neon reflections after rain</li>
+            <li>strangers mid-thought at crosswalks</li>
+            <li>the ten-minute window before golden hour</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Portraits.</strong> Harder, more rewarding.
+          <ul>
+            <li>window light over softbox</li>
+            <li>56mm prime when possible</li>
+            <li>talk for five minutes before the first frame</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Everything else.</strong> The overflow folder.
+          <ul>
+            <li>basketball games on the block</li>
+            <li>canyon hikes in southern Utah</li>
+            <li>half-finished startup offices</li>
+          </ul>
+        </li>
+      </ol>
+
+      <figure class="scratch-figure">
+        <img src="images/self-portrait.jpg" alt="Self portrait in a convex mirror" />
+        <figcaption>Self portrait. Convex street mirror, Salt Lake.</figcaption>
+      </figure>
+    </div>
+
+    <div class="scratch-section" id="video">
+      <p class="section-num">03 / Motion</p>
+      <h2>Something worth watching.</h2>
+      <p>
+        A video that shaped how I see cities through a lens.
+      </p>
+
+      <div class="scratch-video">
+        <iframe
+          src="https://www.youtube.com/embed/Ntl1Awwl85Q"
+          title="YouTube video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="scratch-section" id="data">
+      <p class="section-num">04 / Live data</p>
+      <h2>An interactive snapshot.</h2>
+      <p>
+        Finance major speaking now. Here's a live Tableau dashboard you can click around in.
+      </p>
+
+      <div class="scratch-tableau">
+        <tableau-viz id="tableauViz"
+          src="https://public.tableau.com/views/SuperStoresRegionalDashboard/SuperStoreRegionalDashboard"
+          toolbar="bottom"
+          hide-tabs>
+        </tableau-viz>
+      </div>
+    </div>
+
+    <div class="scratch-section callout-section" id="app">
+      <p class="section-num light">05 / The web app</p>
+      <h2>I made a photo guessing game.</h2>
+      <p>
+        A GeoGuessr-style game using my own photos. You see one of my shots, you guess if it was taken in New York, Utah, or Tahoe. 10 rounds, timer, streak bonuses. Built with AI and then tuned by hand.
+      </p>
+      <p class="center">
+        <a class="scratch-btn" href="wordle.html">Play the Photo Game →</a>
+      </p>
+    </div>
+
+    <footer class="scratch-footer">
+      <p>Kris Tony. BYU 2029. <a href="#top">back to top ↑</a></p>
+      <p class="foot-small">styles.css / scratch.html / no Bootstrap on this page</p>
+    </footer>
+
+  </main>
+
+  <script>
+    const toggle = document.getElementById('scratchToggle');
+    const sidebar = document.getElementById('scratchSidebar');
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      toggle.classList.toggle('active');
+    });
+    sidebar.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        toggle.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
