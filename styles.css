@@ -369,6 +369,28 @@ a {
   text-align: center;
 }
 
+/* ---------- Sitemap list on scratch page ---------- */
+.sitemap-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+.sitemap-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(232, 230, 225, 0.08);
+  color: #a8a6a1;
+  font-size: 1rem;
+}
+.sitemap-list li:last-child { border-bottom: none; }
+.sitemap-list a {
+  color: #e8e6e1;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+  margin-right: 0.75rem;
+}
+.sitemap-list a:hover { border-bottom-color: #e8e6e1; }
+
 /* ---------- STYLE 13: footer ---------- */
 .scratch-footer {
   margin-top: 60px;
